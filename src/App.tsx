@@ -1,23 +1,14 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Reel from './components/Reel';
-import Portfolio from './components/Portfolio';
-import Services from './components/Services';
-import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Admin from './pages/Admin';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-background text-primary selection:bg-accent selection:text-background">
-      <Navbar />
-      <main>
-        <Hero />
-        <Reel />
-        <Portfolio />
-        <Services />
-      </main>
-      <Footer />
-      <WhatsAppButton />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

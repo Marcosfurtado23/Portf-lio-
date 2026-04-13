@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "Project": {
+      "title": "Project",
+      "description": "A portfolio project (trabalho).",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the project."
+        },
+        "role": {
+          "type": "string",
+          "description": "The role in the project (e.g., Diretor de Fotografia)."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the project (e.g., Curta-metragem)."
+        },
+        "image": {
+          "type": "string",
+          "format": "uri",
+          "description": "The URL of the project's cover image."
+        },
+        "order": {
+          "type": "number",
+          "description": "The order of the project for sorting."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the project was created."
+        }
+      },
+      "required": ["title", "role", "category", "image"]
+    }
+  },
+  "firestore": {
+    "/projects/{projectId}": {
+      "schema": {
+        "$ref": "#/entities/Project"
+      },
+      "description": "Collection of portfolio projects."
+    }
+  }
+}
