@@ -10,6 +10,7 @@ interface Project {
   role: string;
   category: string;
   image: string;
+  gallery?: string[];
   order?: number;
 }
 
@@ -27,6 +28,7 @@ export default function Admin() {
     role: '',
     category: '',
     image: '',
+    gallery: [] as string[],
     order: 0
   });
 
@@ -110,6 +112,7 @@ export default function Admin() {
       role: project.role,
       category: project.category,
       image: project.image,
+      gallery: project.gallery || [],
       order: project.order || 0
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -133,6 +136,7 @@ export default function Admin() {
       role: '',
       category: '',
       image: '',
+      gallery: [],
       order: 0
     });
   };
@@ -225,7 +229,7 @@ export default function Admin() {
               </div>
 
               <div>
-                <label className="block text-xs uppercase tracking-wider text-secondary mb-2">URL da Imagem</label>
+                <label className="block text-xs uppercase tracking-wider text-secondary mb-2">URL da Imagem Principal (Capa)</label>
                 <input 
                   type="url" 
                   name="image"
@@ -240,6 +244,42 @@ export default function Admin() {
                     <img src={formData.image} alt="Preview" className="w-full h-full object-cover" onError={(e) => (e.currentTarget.src = 'https://via.placeholder.com/400x225?text=Erro+na+Imagem')} />
                   </div>
                 )}
+              </div>
+
+              <div>
+                <label className="block text-xs uppercase tracking-wider text-secondary mb-2">Galeria de Imagens (Carrossel)</label>
+                {formData.gallery.map((url, index) => (
+                  <div key={index} className="flex gap-2 mb-2">
+                    <input
+                      type="url"
+                      value={url}
+                      onChange={(e) => {
+                        const newGallery = [...formData.gallery];
+                        newGallery[index] = e.target.value;
+                        setFormData({...formData, gallery: newGallery});
+                      }}
+                      className="w-full bg-background border border-white/10 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-accent transition-colors"
+                      placeholder="https://..."
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => {
+                        const newGallery = formData.gallery.filter((_, i) => i !== index);
+                        setFormData({...formData, gallery: newGallery});
+                      }} 
+                      className="p-2 bg-red-500/20 text-red-500 rounded-lg hover:bg-red-500/40 transition-colors"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                ))}
+                <button 
+                  type="button" 
+                  onClick={() => setFormData({...formData, gallery: [...formData.gallery, '']})} 
+                  className="text-xs text-accent hover:text-white flex items-center gap-1 mt-2 transition-colors"
+                >
+                  <Plus size={14} /> Adicionar Imagem ao Carrossel
+                </button>
               </div>
 
               <div className="flex gap-4 mt-4">

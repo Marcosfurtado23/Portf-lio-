@@ -1,6 +1,6 @@
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
-import Reel from '../components/Reel';
+import Featured from '../components/Featured';
 import Portfolio from '../components/Portfolio';
 import Services from '../components/Services';
 import Footer from '../components/Footer';
@@ -12,7 +12,7 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <Reel />
+        <Featured />
         <Portfolio />
         <Services />
       </main>

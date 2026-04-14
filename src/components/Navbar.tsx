@@ -15,7 +15,7 @@ export default function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: 'Reel', href: '#reel' },
+    { name: 'Destaques', href: '#featured' },
     { name: 'Trabalhos', href: '#work' },
     { name: 'Serviços', href: '#services' },
     { name: 'Contato', href: '#contact' },

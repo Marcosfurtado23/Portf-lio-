@@ -13,6 +13,7 @@ service cloud.firestore {
     //   - role: string (required, max 100 chars)
     //   - category: string (required, max 100 chars)
     //   - image: string (required, valid URL, max 1000 chars)
+    //   - gallery: list (optional, array of strings)
     //   - order: number (optional)
     //   - createdAt: timestamp (required, immutable)
     // ===============================================================
@@ -47,11 +48,12 @@ service cloud.firestore {
 
     function isValidProject(data) {
       return hasRequiredFields(['title', 'role', 'category', 'image', 'createdAt']) &&
-             hasOnlyAllowedFields(['title', 'role', 'category', 'image', 'order', 'createdAt']) &&
+             hasOnlyAllowedFields(['title', 'role', 'category', 'image', 'gallery', 'order', 'createdAt']) &&
              data.title is string && data.title.size() > 0 && data.title.size() <= 100 &&
              data.role is string && data.role.size() > 0 && data.role.size() <= 100 &&
              data.category is string && data.category.size() > 0 && data.category.size() <= 100 &&
              isValidUrl(data.image) &&
+             (!('gallery' in data) || data.gallery is list) &&
              (!('order' in data) || data.order is number) &&
              data.createdAt is timestamp;
     }

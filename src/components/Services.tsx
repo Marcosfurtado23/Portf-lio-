@@ -1,11 +1,11 @@
 import { motion } from 'motion/react';
 import { services } from '../data';
-import { Scissors, Camera, Palette } from 'lucide-react';
+import { Sparkles, Sliders, History } from 'lucide-react';
 
 const iconMap = {
-  Scissors,
-  Camera,
-  Palette
+  Sparkles,
+  Sliders,
+  History
 };
 
 export default function Services() {

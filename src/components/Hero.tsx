@@ -21,22 +21,21 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.2 }}
         >
           <p className="text-accent uppercase tracking-[0.3em] text-xs md:text-sm font-medium mb-6">
-            Contador de Histórias Visuais
+            Estúdio de Arte Digital
           </p>
           <h1 className="font-serif text-5xl md:text-7xl lg:text-9xl font-bold leading-[0.9] tracking-tight mb-8">
-            CRIANDO <br />
-            <span className="italic font-light text-white/90">CINEMA</span>
+            SUA IMAGEM, <br />
+            <span className="italic font-light text-white/90">REIMAGINADA</span>
           </h1>
           <p className="text-secondary max-w-xl mx-auto text-sm md:text-base tracking-wide leading-relaxed mb-12">
-            Editor, Diretor de Fotografia e Colorista. 
-            Transformando momentos brutos em experiências visuais inesquecíveis.
+            Você envia sua foto e nós criamos ensaios incríveis com edição avançada, preservando perfeitamente sua fisionomia. Também oferecemos restauração e retoque profissional.
           </p>
           
           <a 
-            href="#reel" 
+            href="#featured" 
             className="inline-flex items-center justify-center border border-white/30 rounded-full px-8 py-4 text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-background transition-all duration-300"
           >
-            Assistir Reel
+            Ver Galeria
           </a>
         </motion.div>
       </div>
