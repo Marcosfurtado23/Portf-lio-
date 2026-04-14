@@ -29,8 +29,7 @@ service cloud.firestore {
     function isAdmin() {
       // Allow the specific user email to be the admin
       return isAuthenticated() && 
-             request.auth.token.email == "marcossilva192024@gmail.com" && 
-             request.auth.token.email_verified == true;
+             request.auth.token.email == "marcossilva192024@gmail.com";
     }
 
     function isValidUrl(url) {

@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import { auth, db, googleProvider } from '../firebase';
-import { signInWithPopup, signOut, onAuthStateChanged, User } from 'firebase/auth';
+import { auth, db } from '../firebase';
+import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from 'firebase/firestore';
 import { Trash2, Edit2, Plus, LogOut, Loader2 } from 'lucide-react';
 
@@ -20,6 +20,11 @@ export default function Admin() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loadingData, setLoadingData] = useState(false);
   
+  // Login state
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+
   // Form state
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState('');
@@ -60,11 +65,14 @@ export default function Admin() {
     return () => unsubscribe();
   }, [user]);
 
-  const handleLogin = async () => {
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
     try {
-      await signInWithPopup(auth, googleProvider);
+      await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
     } catch (error) {
       console.error("Login error:", error);
+      setLoginError('E-mail ou senha incorretos.');
     }
   };
 
@@ -153,13 +161,39 @@ export default function Admin() {
     return (
       <div className="min-h-screen bg-background flex flex-col items-center justify-center text-center px-6">
         <h1 className="font-serif text-4xl mb-6">Painel de <span className="italic text-accent">Administração</span></h1>
-        <p className="text-secondary mb-8 max-w-md">Faça login com sua conta do Google para gerenciar os projetos do portfólio.</p>
-        <button 
-          onClick={handleLogin}
-          className="bg-white text-background px-8 py-3 rounded-full font-medium tracking-wide hover:bg-accent hover:text-white transition-colors"
-        >
-          Entrar com Google
-        </button>
+        <p className="text-secondary mb-8 max-w-md">Faça login para gerenciar os projetos do portfólio.</p>
+        
+        <form onSubmit={handleLogin} className="w-full max-w-sm flex flex-col gap-4 bg-surface p-8 rounded-2xl border border-white/5">
+          {loginError && <p className="text-red-500 text-sm">{loginError}</p>}
+          <div className="text-left">
+            <label className="block text-xs uppercase tracking-wider text-secondary mb-2">E-mail</label>
+            <input 
+              type="email" 
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
+              required
+              className="w-full bg-background border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+              placeholder="seu@email.com"
+            />
+          </div>
+          <div className="text-left mb-2">
+            <label className="block text-xs uppercase tracking-wider text-secondary mb-2">Senha</label>
+            <input 
+              type="password" 
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
+              required
+              className="w-full bg-background border border-white/10 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-accent transition-colors"
+              placeholder="••••••••"
+            />
+          </div>
+          <button 
+            type="submit"
+            className="w-full bg-white text-background px-8 py-3 rounded-lg font-medium tracking-wide hover:bg-accent hover:text-white transition-colors"
+          >
+            Entrar
+          </button>
+        </form>
       </div>
     );
   }
